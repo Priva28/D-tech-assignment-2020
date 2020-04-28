@@ -11,7 +11,7 @@ from time import sleep
     Christian P
 
     Enter the highest possible mark and a mark. 
-    The percentage will be output and satisfactory if above 50% or unsatisfactory if below.
+    The percentage will be output and an A,B,C,D,E or F mark.
     Go to the bottom of the page to choose a cli or a gui.
 '''
 
@@ -60,9 +60,10 @@ def gui_version():
     def animateView():
         global num
 
-        markWindow.lift()
+        
 
         try:
+            markWindow.lift()
             mark_pct = (int(num1_entry.get()) / int(num2_entry.get())) * 100
 
             if mark_pct >= 90 and mark_pct <= 100:
@@ -88,8 +89,8 @@ def gui_version():
         except:
             messagebox.showerror(title="Error!", message="There was an error calculating. "
                                                          "Make sure that you enter a valid number.")
-            num1_entry.delete(0, "end")
-            num2_entry.delete(0, "end")
+            gui_version()
+            
 
     # Labels
     title_label = ttk.Label(text="Mark Calculator", font=("default", 30, "bold"))
