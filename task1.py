@@ -41,30 +41,40 @@ def gui_version():
 
     # Do something when the name entry changes.
     def name_entry_changed(name='', index='', mode=''):
-        if year_entry.get() == "":
-            main_label.config(text="Hello " + name_entry.get() + "! This year you will turn --")
+        if name_entry.get() != "":
+            if year_entry.get() != "":
+                try:
+                    age_this_year = str(current_year - int(year_entry.get()))
+                    main_label.config(text="Hello " + name_entry.get() + "! This year you will turn " + age_this_year)
+                except:
+                    messagebox.showerror(title="Error!", message="There was an error calculating your age. "
+                                                                 "Make sure that you enter a valid year of birth.")
+                    year_entry.delete(0, "end")
+            else:
+                main_label.config(text="Hello " + name_entry.get() + "! This year you will turn --.")
         else:
-            try:
-                age_this_year = str(current_year - int(year_entry.get()))
-                main_label.config(text="Hello " + name_entry.get() + "! This year you will turn " + age_this_year)
-            except:
-                messagebox.showerror(title="Error!", message="There was an error calculating your age. "
-                                                             "Make sure that you enter a valid year of birth.")
-                year_entry.delete(0, "end")
+            main_label.config(text="Hello! This year you will turn --.")
+
         root.geometry("{labelwidth}x150".format(labelwidth=str(main_label.winfo_width() + 60)))
 
     # Do something when the year of birth entry changes.
     def year_entry_changed(name='', index='', mode=''):
-        try:
-            age_this_year = str(current_year - int(year_entry.get()))
+        if year_entry.get() != "":
+            try:
+                age_this_year = str(current_year - int(year_entry.get()))
+                if name_entry.get() != "":
+                    main_label.config(text="Hello " + name_entry.get() + "! This year you will turn " + age_this_year)
+                else:
+                    main_label.config(text="Hello! This year you will turn " + age_this_year)
+            except:
+                messagebox.showerror(title="Error!", message="There was an error calculating your age. "
+                                                             "Make sure that you enter a valid year of birth.")
+                year_entry.delete(0, "end")
+        else:
             if name_entry.get() != "":
-                main_label.config(text="Hello " + name_entry.get() + "! This year you will turn " + age_this_year)
+                main_label.config(text="Hello " + name_entry.get() + "! This year you will turn --.")
             else:
-                main_label.config(text="Hello! This year you will turn " + age_this_year)
-        except:
-            messagebox.showerror(title="Error!", message="There was an error calculating your age. "
-                                                         "Make sure that you enter a valid year of birth.")
-            year_entry.delete(0, "end")
+                main_label.config(text="Hello! This year you will turn --.")
 
     current_year = date.today().year
 
