@@ -26,13 +26,13 @@ def cli_version():
 
         if mark_pct >= 90:
             print(str(mark_pct) + "% is a satisfactory mark. A. PASS")
-        elif mark_pct >=80 and mark_pct <= 89:
+        elif mark_pct >= 80 and mark_pct <= 89:
             print(str(mark_pct) + "% is a satisfactory mark. B. PASS")
-        elif mark_pct >=70 and mark_pct <= 79:
+        elif mark_pct >= 70 and mark_pct <= 79:
             print(str(mark_pct) + "% is a satisfactory mark. C. PASS")
-        elif mark_pct >=60 and mark_pct <= 69:
+        elif mark_pct >= 60 and mark_pct <= 69:
             print(str(mark_pct) + "% is a satisfactory mark. D. PASS")
-        elif mark_pct >=0 and mark_pct <= 60:
+        elif mark_pct >= 0 and mark_pct <= 60:
             print(str(mark_pct) + "% is an unsatisfactory mark. F. FAIL")
         else:
             print("Error calculation mark. Retry:")
@@ -43,13 +43,10 @@ def cli_version():
         cli_version()
 
 
-
-
-
 num = 1
 
-def gui_version():
 
+def gui_version():
     root = Tk()
     root.geometry("500x200")
     root.title("Mark Calculator")
@@ -57,38 +54,36 @@ def gui_version():
     markWindow = Toplevel(root)
     markWindow.geometry("0x0")
 
-    mark_label = Label(markWindow, text=".", font=("default", 100, "bold"))
+    mark_label = Label(markWindow, text=".", font=("default", 60, "bold"))
     mark_label.pack()
 
     def animateView():
         global num
 
+        markWindow.lift()
+
         try:
             mark_pct = (int(num1_entry.get()) / int(num2_entry.get())) * 100
 
-            print(mark_pct)
-
             if mark_pct >= 90 and mark_pct <= 100:
-                mark_label.config(text = "🏅 A 🏅")
+                mark_label.config(text="Mark: A 🏅")
             elif mark_pct >= 80 and mark_pct <= 89:
-                mark_label.config(text = "🥈 B 🥈")
+                mark_label.config(text="Mark: B 🥈")
             elif mark_pct >= 70 and mark_pct <= 79:
-                mark_label.config(text = "✅ C ✅")
+                mark_label.config(text="Mark: C ✅")
             elif mark_pct >= 60 and mark_pct <= 69:
-                mark_label.config(text = "🆗 D 🆗")
+                mark_label.config(text="Mark: D 🆗")
             elif mark_pct >= 0 and mark_pct <= 60:
-                mark_label.config(text = "⛔ F ⛔")
+                mark_label.config(text="Mark: F ⛔")
             else:
                 messagebox.showerror(title="Error!", message="There was an error calculating. "
                                                              "Make sure that you enter a valid number.")
                 num1_entry.delete(0, "end")
                 num2_entry.delete(0, "end")
 
-
-            if num < 400:
-                markWindow.geometry("{w}x{h}+600+600".format(w = num * 2, h = num))
-                num = num + 10
-                print(num)
+            if num < 200:
+                markWindow.geometry("{w}x{h}+100+100".format(w=num * 2, h=num))
+                num = num + 7
                 root.after(1, animateView)
         except:
             messagebox.showerror(title="Error!", message="There was an error calculating. "
@@ -111,8 +106,8 @@ def gui_version():
     # Button
     enter_button = ttk.Button(root, text="Enter", command=animateView)
 
-    title_label.grid(sticky="w", row = 0, column = 0)
-    direction_label.grid(row = 1, column = 0)
+    title_label.grid(sticky="w", row=0, column=0)
+    direction_label.grid(row=1, column=0)
 
     num1_entry_label.grid(sticky="w", row=2, column=0)
     num2_entry_label.grid(sticky="w", row=3, column=0)
@@ -124,4 +119,6 @@ def gui_version():
 
     root.mainloop()
 
+# Choose your version, gui or cli
+# cli_version()
 gui_version()
